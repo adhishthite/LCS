@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.System;
-
+import java.math.*;
 
 public class LCS {
 
@@ -78,8 +78,78 @@ public class LCS {
     }
 
     private static void doLCS(Pair tempPair){
+        String input1 = tempPair.input2;
+        String input2 = tempPair.input1;
+        int m =input1.length();
+        int n = input2.length();
+        int[][] L = new int[m+1][n+1];
+        for(int i = 0;i<m;i++)
+        {
+            L[i][0] = 0;
+        }
+        for(int j=0;j<n;j++)
+        {
+            L[0][j] = 0;
+        }
+
+        for(int i = 0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(input1.charAt(i) == input2.charAt(j))
+                {
+                    L[i+1][j+1] = L[i][j] + 1;
+                }
+                else
+                {
+                    L[i+1][j+1] = Math.max(L[i][j+1], L[i+1][j]);
+                }
+            }
+        }
+        for(int i=0;i<m+1;i++)
+        {
+            for(int j=0;j<n+1;j++)
+            {
+                System.out.print(L[i][j]+"\t");
+            }
+            System.out.println();
+        }
+        int lcs_len = L[m][n];
+        int idx = lcs_len;
+        char[] lcs = new char[lcs_len];
+        System.out.println(lcs_len);
+        int i=m;
+        int j=n;
+        while(i>0 && j>0)
+        {
+            System.out.println("i:"+i+"\tj:"+j);
+            if(input1.charAt(i-1) == input2.charAt(j-1))
+            {
+                System.out.println(input1.charAt(i-1)+" "+input2.charAt(j-1));
+                lcs[idx-1] = input1.charAt(i-1);
+                i--;
+                j--;
+                idx--;
+
+            }
+            else {
+                if(L[i-1][j] > L[i][j-1])
+                {
+                    i--;
+                }
+                else
+                {
+                    j--;
+                }
+            }
+        }
+        tempPair.strLCS = lcs.toString();
+        tempPair.lengthLCS = lcs_len;
+
 
     }
+
+
 
     private class Pair {
         private String input1;
