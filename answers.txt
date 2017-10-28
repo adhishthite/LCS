@@ -1,0 +1,21 @@
+
+------------------------------------------
+For the DNA Strands:
+	1. ACCGGTCGAGTG
+	2. GTCGTTCG
+
+LCS is:	GTCGTG
+Length of LCS is:	6
+------------------------------------------
+
+------------------------------------------
+For the DNA Strands:
+	1. CGTAGGTCGGATGCCCT
+	2. TCATTCCGGACCCATTTAGG
+
+LCS is:	CTTCGGACCCT
+Length of LCS is:	11
+------------------------------------------
+
+
+Running Time is:		0 ms
