@@ -54,18 +54,21 @@
  + The program will fail if the strands are located in one single line, divided by COMMA or SEMICOLON.
  */
 
+// IMPORT STATEMENTS - BEGIN
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.System;
+
+// IMPORT STATEMENTS - END
 
 public class LCS {
 
+    /* Main Method */
     public static void main(String[] args) {
 
         List<Pair> global_PairList;
-
-        if (args[0] != null && args[0].length() != 0) {
+        if (args.length != 0 && args[0] != null && args[0].length() != 0) {
             LCS objLCS = new LCS();
             global_PairList = objLCS.readFromFile(args[0]);
 
@@ -84,6 +87,15 @@ public class LCS {
         }
     }
 
+
+    /**
+     * @param fileName
+     * @return Pairs of Input Strings
+     * <p>
+     * Description: Reads the input from the input file and then makes a 'Pair' of successive input strings.
+     * If an extra input string is found, then it is discarded.
+     * @name readFromFile
+     */
     private List<Pair> readFromFile(String fileName) {
         File inputFile = new File(fileName);
         List<Pair> pairLists = new ArrayList<>();
@@ -112,6 +124,15 @@ public class LCS {
         return pairLists;
     }
 
+
+    /**
+     * @name initiateLCSCalculation
+     * @param   pairsList
+     * @return Performance of the Algorithm
+     *
+     * Description: Passes each pair, one at a time, to the actual LCS calculation.
+     *              Measures the performance of the algorithm.
+     */
     private long initiateLCSCalculation(List<Pair> pairsList) {
         long startTime = System.currentTimeMillis();
 
@@ -122,6 +143,14 @@ public class LCS {
         return (System.currentTimeMillis() - startTime);
     }
 
+    /**
+     * @name doLCS
+     * @param   tempPair
+     * @return void
+     *
+     * Description: Performs the actual LCS calculation on a Pair.
+     *              The LCS and LCS Length are stored in the pair itself.
+     */
     private static void doLCS(Pair tempPair) {
         String input1 = tempPair.input2;
         String input2 = tempPair.input1;
@@ -174,6 +203,14 @@ public class LCS {
         tempPair.lengthLCS = lcs_len;
     }
 
+
+    /**
+     * @name writeToFile
+     * @param   pairList
+     * @param   runningTime
+     *
+     * Description: Writes the Input Strings, LCS, LCS Length and Performance in a structured manner to ANSWERS.TXT
+     */
     private void writeToFile(List<Pair> pairList, Long runningTime) {
         BufferedWriter buffWrite;
         FileWriter fWriter = null;
@@ -203,6 +240,13 @@ public class LCS {
     }
 
 
+    /**
+     * INNER CLASS - PAIR()
+     *
+     * Data Structure used to encapsulate the Input Strings, the LCS and the LCS Length together.
+     *
+     * Overriden the toString() Method to simplify file writing and display
+     */
     private class Pair {
         private String input1;
         private String input2;
